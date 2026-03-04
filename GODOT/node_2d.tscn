@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://5f4oiai6b43u"]
+
+[ext_resource type="Script" uid="uid://bu8y378hxqo11" path="res://text_edit.gd" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://7354r5b7qo68" path="res://v_box_container.gd" id="2_0hol4"]
+[ext_resource type="Texture2D" uid="uid://4yi7jf00mywe" path="res://icon.svg" id="2_epypp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e48y"]
+
+[node name="Node2D" type="Node2D" unique_id=1529904760]
+
+[node name="Control" type="Control" parent="." unique_id=730959725]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 5.0
+offset_right = 1176.0
+offset_bottom = 647.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=66922630]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 291.0
+offset_top = 161.0
+offset_right = -412.0
+offset_bottom = 439.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+script = ExtResource("2_0hol4")
+
+[node name="Panel" type="Panel" parent="Control/VBoxContainer" unique_id=288331879]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0e48y")
+
+[node name="Up" type="HBoxContainer" parent="Control/VBoxContainer/Panel" unique_id=74123836]
+material = SubResource("ShaderMaterial_0e48y")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Panel/Up" unique_id=748344796]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+text = "Заметки"
+
+[node name="hidebut" type="TextureButton" parent="Control/VBoxContainer/Panel/Up" unique_id=1144318331]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("2_epypp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="closebut" type="TextureButton" parent="Control/VBoxContainer/Panel/Up" unique_id=499331614]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("2_epypp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bottom" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=565711543]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.28
+
+[node name="TextEdit" type="TextEdit" parent="Control/VBoxContainer/Bottom" unique_id=1847526265]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_0e48y")
+
+[connection signal="gui_input" from="Control" to="Control/VBoxContainer" method="_on_control_gui_input"]
+[connection signal="gui_input" from="Control/VBoxContainer" to="Control/VBoxContainer" method="_on_gui_input"]
+[connection signal="gui_input" from="Control/VBoxContainer/Panel" to="Control/VBoxContainer" method="_on_panel_gui_input"]
+[connection signal="pressed" from="Control/VBoxContainer/Panel/Up/hidebut" to="Control/VBoxContainer" method="_on_hidebut_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Panel/Up/closebut" to="Control/VBoxContainer" method="_on_closebut_pressed"]
+[connection signal="text_changed" from="Control/VBoxContainer/Bottom/TextEdit" to="Control/VBoxContainer/Bottom/TextEdit" method="_on_text_changed"]
