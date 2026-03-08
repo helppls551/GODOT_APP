@@ -1,8 +1,23 @@
-[gd_scene format=3 uid="uid://dq1au7uaxf2u0"]
+[gd_scene format=3 uid="uid://7lx5hgrxvvty"]
 
 [ext_resource type="Script" uid="uid://fcvoopehopai" path="res://Main.gd" id="1_main_script"]
+[ext_resource type="Script" uid="uid://83t6hp4fmsys" path="res://graph.gd" id="2_uu6xs"]
 
-[node name="Main" type="Control" unique_id=2037630337]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
+bg_color = Color(0.39215687, 0.70980394, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
+bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
+bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
+
+[sub_resource type="Theme" id="Theme_uu6xs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fos0i"]
+bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
+
+[node name="Main" type="Control" unique_id=571473272]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,33 +26,88 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main_script")
 
-[node name="TopPanel" type="Panel" parent="." unique_id=1797511102]
+[node name="TopPanel" type="Panel" parent="." unique_id=1218732029]
 layout_mode = 1
-offset_right = 1150.0
-offset_bottom = 50.0
-
-[node name="AddButton" type="Button" parent="TopPanel" unique_id=1081169111]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 110.0
+anchors_preset = 10
+anchor_right = 1.0
 offset_bottom = 40.0
-text = "+ Добавить окно"
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
 
-[node name="ClearButton" type="Button" parent="TopPanel" unique_id=779995746]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 11.0
-offset_right = 293.0
-offset_bottom = 42.0
-text = "Очистить всё"
-
-[node name="Workspace" type="Control" parent="." unique_id=731514440]
+[node name="AddButton" type="Button" parent="TopPanel" unique_id=1197634184]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_right = 0.035
+anchor_bottom = 0.8875
+offset_right = 0.6800003
+offset_bottom = 4.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0du0")
+text = "+"
+
+[node name="CloseButton" type="Button" parent="TopPanel" unique_id=2118408185]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.966
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 50.0
+offset_left = 0.16796875
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_cm0pq")
+text = "X"
+
+[node name="Workspace" type="Control" parent="." unique_id=44163563]
+layout_mode = 1
+anchor_right = 0.8
+anchor_bottom = 0.82100004
+offset_top = 40.0
+offset_bottom = 3.9920044
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_uu6xs")
+
+[node name="Graph" type="Control" parent="." unique_id=1550818346]
+layout_mode = 1
+anchor_top = 0.86100006
+anchor_right = 0.8
+anchor_bottom = 1.0
+offset_top = 0.07196045
+offset_right = 0.39996338
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_uu6xs")
+
+[node name="ParticipantsPanel" type="Panel" parent="." unique_id=696787404]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fos0i")
+
+[node name="Label" type="Label" parent="ParticipantsPanel" unique_id=512993451]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Участники:"
+
+[node name="ParticipantList" type="VBoxContainer" parent="ParticipantsPanel" unique_id=1369701782]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 190.0
+offset_bottom = 560.0
+size_flags_vertical = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

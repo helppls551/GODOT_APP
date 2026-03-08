@@ -16,6 +16,6 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Note App"
 config/description="Приложение с плавающими окнами как заметки"
-run/main_scene="uid://bevm2dy27c4tg"
+run/main_scene="uid://7lx5hgrxvvty"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"

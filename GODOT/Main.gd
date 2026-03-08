@@ -2,50 +2,58 @@ extends Control
 
 @onready var workspace: Control = $Workspace
 @onready var add_button: Button = $TopPanel/AddButton
-@onready var clear_button: Button = $TopPanel/ClearButton
+@onready var close_button: Button = $TopPanel/CloseButton
+@onready var participants_panel: Panel = $ParticipantsPanel
+@onready var participant_list: VBoxContainer = $ParticipantsPanel/ParticipantList
 
-var note_window_scene: PackedScene
+var participants = []  # Пустой список участников
 var notes_scene = preload("res://notes.tscn")
-var notes_activ = null
-
 
 func _ready():
-	note_window_scene = preload("res://NoteWindow.tscn")
-	notes_activ = notes_scene.instantiate()
-	add_child(notes_activ)
-	notes_activ.visible = false
-	
+	# Подключаем сигналы кнопок верхней панели
 	add_button.pressed.connect(_on_add_button_pressed)
-	clear_button.pressed.connect(_on_clear_button_pressed)
+	close_button.pressed.connect(_on_close_button_pressed)
 	
-	_create_demo_windows()
+	# Загружаем список участников
+	update_participants_list()
+	
+	# Растягиваем окно на весь экран при запуске
+	if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-func _create_demo_windows():
-	for i in range(3):	
-		var window = note_window_scene.instantiate()
-		var base_position = Vector2(100 + i * 40, 80 + i * 40)
-		workspace.add_child(window)
-		window.position = base_position
-		window.window_closed.connect(_on_window_closed.bind(window))
+func update_participants_list():
+	# Очищаем список
+	for child in participant_list.get_children():
+		child.queue_free()
+	
+	# Добавляем участников (если есть)
+	for participant in participants:
+		var participant_item = Panel.new()
+		participant_item.custom_minimum_size = Vector2(0, 30)
+		participant_item.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		participant_item.color = Color(0.25, 0.25, 0.25, 1)
+		
+		var name_label = Label.new()
+		name_label.text = participant
+		name_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		name_label.position = Vector2(5, 5)
+		name_label.size = Vector2(165, 20)
+		
+		participant_item.add_child(name_label)
+		participant_list.add_child(participant_item)
 
 func _on_add_button_pressed():
-	var window = note_window_scene.instantiate()
-	var random_x = randi_range(50, 600)
-	var random_y = randi_range(50, 400)
-	
-	workspace.add_child(window)
-	window.position = Vector2(random_x, random_y)
-	window.window_closed.connect(_on_window_closed.bind(window))
+	# Здесь будет создание новой заметки
+	pass
 
-func _on_clear_button_pressed():
-	for child in workspace.get_children():
-		child.queue_free()
+func _on_close_button_pressed():
+	get_tree().quit()
 
-func _on_window_closed(window):
-	if is_instance_valid(window):
-		window.queue_free()
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			notes_activ.visible = !notes_activ.visible
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton \
+	and event.button_index == MOUSE_BUTTON_RIGHT \
+	and event.pressed:
+		
+		var note = notes_scene.instantiate()
+		add_child(note)
+		note.position = get_global_mouse_position()
