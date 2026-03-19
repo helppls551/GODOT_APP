@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7lx5hgrxvvty"]
 
 [ext_resource type="Script" uid="uid://fcvoopehopai" path="res://Main.gd" id="1_main_script"]
-[ext_resource type="Script" uid="uid://83t6hp4fmsys" path="res://graph.gd" id="2_uu6xs"]
+[ext_resource type="Script" uid="uid://6i56bs3mvs6i" path="res://graph.gd" id="2_uu6xs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
 bg_color = Color(0.39215687, 0.70980394, 0.9647059, 1)
