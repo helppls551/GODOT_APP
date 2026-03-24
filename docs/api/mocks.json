@@ -3,7 +3,7 @@
 		"ep-id": 1,
 		"ep-description": "Получить текущий список пользователей (GET /api/users). Можно с фильтром по user_id и/или role (GET /api/users?user_id=42&role=designer)",
 		"response":{
-			"users": [
+			[
 				{"user_id": 0, "role": "manager"},
 				{"user_id": 1, "role": "designer"}
 			]
@@ -21,7 +21,7 @@
 				"role": "designer"
 			},
 			"400": {
-				"error": "Failed to create user; invalid role?"
+				"description": "Failed to create user; invalid role?"
 			}
 		}
 	},
@@ -29,7 +29,7 @@
 		"ep-id": 3,
 		"ep-description": "Получить список всех задач (GET /api/tasks)",
 		"response":{
-			"tasks": [
+			[
 				{"task_id": 42, "assignee": 1, "status": "done", "estimate_h": 20,
 				"created_at": 1773096969, "due_date": 1823090420},
 				{"task_id": 37, "assignee": 0, "status": "in_progress", "estimate_h": 5,
@@ -47,7 +47,6 @@
 		},
 		"responses":{
 			"201": {	
-				"description": "OK",
 				"task_id" : 45,
 				"assignee": 1,
 				"status": "todo",
@@ -56,7 +55,7 @@
 				"due_date": 1773090719
 			},
 			"400": {
-				"description": "ERROR CREATING TASK (INVALID REQUEST?)"
+				"description": "Failed to create task; invalid parameters?"
 			}
 		}
 	},
@@ -64,9 +63,9 @@
 		"ep-id": 5,
 		"ep-description": "Получить time_logs (GET /api/time_logs)",
 		"response":{
-			"time_logs": [
-				{"task_id": 26, "user_id": "5", "date": 1973090561, "hours": 3},
-				{"task_id": 5, "user_id": "0", "date": 1933095500, "hours": 28},
+			[
+				{"task_id": 26, "user_id": "5", "date": 1973090561, "estimate_h": 3},
+				{"task_id": 5, "user_id": "0", "date": 1933095500, "estimate_h": 28},
 			]
 		}
 	},
