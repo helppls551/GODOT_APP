@@ -1,20 +1,57 @@
 extends Control
-
 var tasks = [
-	{"start": "2026-01-01", "end": "2026-01-10"},
-	{"start": "2026-01-01", "end": "2026-02-15"},
-	{"start": "2026-01-01", "end": "2026-04-01"},
+	{"start": "2026-01-01", "deadline": "2026-01-10"}
 ]
-
 func _ready():
+	EventBus.note_data_changed.connect(_on_note_data_changed)
+	load_json()
 	queue_redraw()
 
+func _on_note_data_changed():
+	print("Получен сигнал об изменении данных")
+	load_json()
+	queue_redraw()
+
+func load_json():
+	tasks.clear()
+	
+	var dir = DirAccess.open("res://")
+	if not dir:
+		print("Ошибка открытия директории res://")
+		return
+	
+	dir.list_dir_begin()
+	var filename = dir.get_next()
+	
+	while filename != "":
+		if filename.ends_with(".json"):
+			var file = FileAccess.open("res://" + filename, FileAccess.READ)
+			if file:
+				var content = file.get_as_text()
+				var data = JSON.parse_string(content)
+				
+				if data != null and data.has("start") and data.has("deadline"):
+					# Добавляем только start и end
+					tasks.append({
+						"start": data["start"],
+						"end": data["deadline"]
+					})
+					print("Загружена задача: ", data["start"], " -> ", data["deadline"])
+				else:
+					print("Неверный формат JSON в файле: ", filename)
+				file.close()
+		
+		filename = dir.get_next()
+	
+	dir.list_dir_end()
+	print("Всего загружено задач: ", tasks.size())
+	print("tasks: ", tasks)  # Для отладки
 func date_to_unix(d_str):
-	var parts = d_str.split("-")
+	var parts = d_str.split(".")
 	var dt = {
-		"year": int(parts[0]),
+		"year": int(parts[2]),
 		"month": int(parts[1]),
-		"day": int(parts[2]),
+		"day": int(parts[0]),
 		"hour": 12,
 		"minute": 0,
 		"second": 0

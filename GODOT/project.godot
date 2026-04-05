@@ -19,3 +19,7 @@ config/description="Приложение с плавающими окнами к
 run/main_scene="uid://7lx5hgrxvvty"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*uid://cjuhmue2gpfhc"
