@@ -85,6 +85,7 @@ text = "Исполнитель:"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.36659402, 0.36659488, 0.36659428, 0.6)
 theme_override_styles/normal = SubResource("2")
 placeholder_text = "Введите имя"
 
@@ -105,6 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
 theme_override_colors/background_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("2")
 placeholder_text = "Введите описание..."
@@ -125,6 +127,7 @@ text = "Тип:"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
 theme_override_styles/normal = SubResource("2")
 placeholder_text = "Работа/Личное/Учеба"
 
@@ -143,6 +146,7 @@ text = "Срок:"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
 theme_override_styles/normal = SubResource("2")
 placeholder_text = "ДД.ММ.ГГГГ-ДД.ММ.ГГГГ"
 
