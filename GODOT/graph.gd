@@ -1,7 +1,5 @@
 extends Control
-var tasks = [
-	{"start": "2026-01-01", "deadline": "2026-01-10"}
-]
+var tasks = []
 func _ready():
 	EventBus.note_data_changed.connect(_on_note_data_changed)
 	load_json()
@@ -36,13 +34,10 @@ func load_json():
 						"start": data["start"],
 						"end": data["deadline"]
 					})
-					print("Загружена задача: ", data["start"], " -> ", data["deadline"])
 				else:
 					print("Неверный формат JSON в файле: ", filename)
 				file.close()
-		
 		filename = dir.get_next()
-	
 	dir.list_dir_end()
 	print("Всего загружено задач: ", tasks.size())
 	print("tasks: ", tasks)  # Для отладки
@@ -85,7 +80,7 @@ func _draw():
 	
 	# --- рисуем задачи ---
 	var task_height = 12
-	var spacing = 8
+	var spacing = 10
 	
 	for i in range(tasks.size()):
 		var task = tasks[i]
@@ -106,6 +101,14 @@ func _draw():
 		# цвет (просто разные)
 		var color = Color.from_hsv(float(i) / tasks.size(), 0.7, 0.9)
 		draw_rect(rect, color)
+		#var font = get_theme_default_font()
+		#var font_size = 12
+		#var start_text =task.start
+		#var end_text = task.end
+		#var text_y = y+20 
+		#draw_string(font,Vector2(x1,text_y),start_text,HORIZONTAL_ALIGNMENT_FILL,-1,10,Color(1,1,1))
+		#draw_string(font,Vector2(x2,text_y),end_text,HORIZONTAL_ALIGNMENT_FILL,-1,10,Color(1,1,1))
+
 	var ticks = 12  # количество делений
 
 	for i in range(ticks + 1):

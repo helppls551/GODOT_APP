@@ -6,9 +6,6 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
 bg_color = Color(0.39215687, 0.70980394, 0.9647059, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
-bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
 bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
 
@@ -35,19 +32,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
 
-[node name="AddButton" type="Button" parent="TopPanel" unique_id=1197634184]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.035
-anchor_bottom = 0.8875
-offset_right = 0.6800003
-offset_bottom = 4.5
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxFlat_r0du0")
-text = "+"
-
 [node name="CloseButton" type="Button" parent="TopPanel" unique_id=2118408185]
 layout_mode = 1
 anchors_preset = -1
@@ -71,6 +55,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_uu6xs")
+
+[node name="TasksList" type="VBoxContainer" parent="Workspace" unique_id=1419324477]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Graph" type="Control" parent="." unique_id=1550818346]
 layout_mode = 1
