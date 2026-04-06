@@ -57,7 +57,7 @@ func _draw():
 	var w = size.x
 	var h = size.y
 	var margin = 10
-	var line_y = h - 20
+	var line_y = h - 5
 	
 	# --- собираем все даты ---
 	
