@@ -4,31 +4,17 @@
 
 [node name="Node2D" unique_id=1529904760 instance=ExtResource("1_7hqtv")]
 
-[node name="Control" parent="." index="0" unique_id=730959725]
+[node name="Control" parent="." index="0" unique_id=944131834]
 offset_top = -27.0
 offset_right = 405.0
 offset_bottom = 195.0
 mouse_filter = 2
 
-[node name="VBoxContainer" parent="Control" index="0" unique_id=66922630]
-anchors_preset = 15
-anchor_bottom = 1.0
+[node name="VBoxContainer" parent="Control" index="0" unique_id=122997488]
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 3.0
 offset_bottom = 7.0
-grow_vertical = 2
 
-[node name="Panel" parent="Control/VBoxContainer" index="0" unique_id=288331879]
-custom_minimum_size = Vector2(0, 34)
-
-[node name="Up" parent="Control/VBoxContainer/Panel" index="0" unique_id=74123836]
-anchors_preset = -1
-anchor_bottom = 0.94100004
-offset_bottom = 0.0059986115
-
-[node name="Name" parent="Control/VBoxContainer/Panel/Up" index="0" unique_id=957231889]
-size_flags_vertical = 1
-
-[node name="Label" parent="Control/VBoxContainer/Panel/Up" index="1" unique_id=809411373]
-size_flags_vertical = 1
+[node name="TitleLabel" parent="Control/VBoxContainer/Header/HBox" parent_id_path=PackedInt32Array(2044934645) index="0" unique_id=214226008]
+text = "Задача"

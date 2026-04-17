@@ -65,9 +65,15 @@ func _draw():
 	for t in tasks:
 		all_times.append(date_to_unix(t.start))
 		all_times.append(date_to_unix(t.end))
-	
-	var min_time = all_times[0]
-	var max_time = all_times[0]
+	var min_time = 0
+	var max_time = 0
+	if len(all_times) == 0:
+		var current_date = Time.get_datetime_dict_from_system()
+		var date_string = "%02d.%02d.%04d" % [current_date.day, current_date.month, current_date.year]
+		max_time = date_to_unix(date_string)
+	else:
+		min_time = all_times[0]
+		max_time = all_times[0]
 	for t in all_times:
 		if t < min_time: min_time = t
 		if t > max_time: max_time = t
