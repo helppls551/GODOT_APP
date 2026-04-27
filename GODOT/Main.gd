@@ -5,15 +5,14 @@ extends Control
 @onready var close_button: Button = $TopPanel/CloseButton
 @onready var participants_panel: Panel = $ParticipantsPanel
 @onready var participant_list: VBoxContainer = $ParticipantsPanel/ParticipantList
-@onready var tasks_list: VBoxContainer = $Workspace/TasksList
 
 var participants = []
-
-var notes_scene = preload("res://notes.tscn")
+var note_scene = preload("res://notes.tscn")
 
 func _ready():
 	load_json()
 	# Подключаем сигналы кнопок верхней панели
+	add_button.pressed.connect(_on_add_button_pressed)
 	close_button.pressed.connect(_on_close_button_pressed)
 	
 	EventBus.note_data_changed.connect(_on_note_data_changed)
@@ -28,6 +27,7 @@ func _on_note_data_changed():
 	print("Получен сигнал об изменении данных")
 	load_json()
 	update_participants_list()
+
 func update_participants_list():
 	# Очищаем список
 	for child in participant_list.get_children():
@@ -40,7 +40,7 @@ func update_participants_list():
 		participant_item.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var style = StyleBoxFlat.new()
 		style.bg_color = Color(0.25, 0.25, 0.25, 1)
-		participant_item.add_theme_stylebox_override("panel",style)
+		participant_item.add_theme_stylebox_override("panel", style)
 		
 		var name_label = Label.new()
 		name_label.text = participant
@@ -68,17 +68,22 @@ func load_json():
 			if file:
 				var content = file.get_as_text()
 				var data = JSON.parse_string(content)
-				participants.append(data["executor"])
+				if data and data.has("executor"):
+					participants.append(data["executor"])
 				file.close()
 		
 		filename = dir.get_next()
 	
 	dir.list_dir_end()
-	print("Всего загружено задач: ", participants.size())
-	print("tasks: ", participants)  # Для отладки
+	print("Всего загружено участников: ", participants.size())
+	print("participants: ", participants)
+
 func _on_add_button_pressed():
-	# Здесь будет создание новой заметки
-	pass
+	# Создаём новую заметку при нажатии на кнопку "+"
+	var note = note_scene.instantiate()
+	workspace.add_child(note)
+	# Позиционируем в центре видимой области
+	note.position = Vector2(100, 100)
 
 func _on_close_button_pressed():
 	get_tree().quit()
@@ -88,6 +93,6 @@ func _on_gui_input(event: InputEvent) -> void:
 	and event.button_index == MOUSE_BUTTON_RIGHT \
 	and event.pressed:
 		
-		var note = notes_scene.instantiate()
+		var note = note_scene.instantiate()
 		add_child(note)
 		note.position = get_global_mouse_position()
