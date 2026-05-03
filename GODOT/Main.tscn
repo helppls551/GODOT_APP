@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://7lx5hgrxvvty"]
 
 [ext_resource type="Script" uid="uid://fcvoopehopai" path="res://Main.gd" id="1_main_script"]
+[ext_resource type="Script" uid="uid://bvwt685thlv7p" path="res://workspace.gd" id="2_cm0pq"]
 [ext_resource type="Script" uid="uid://6i56bs3mvs6i" path="res://graph.gd" id="2_uu6xs"]
-[ext_resource type="Script" path="res://color_wheel.gd" id="3_color_wheel"]
+[ext_resource type="Script" uid="uid://chrw76k16hxfs" path="res://color_wheel.gd" id="3_color_wheel"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
 bg_color = Color(0.39215687, 0.70980394, 0.9647059, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plus"]
 bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plus"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
 bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
 
 [sub_resource type="Theme" id="Theme_uu6xs"]
@@ -38,8 +39,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
 
 [node name="AddButton" type="Button" parent="TopPanel" unique_id=2118408186]
 layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -70,14 +69,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_uu6xs")
+script = ExtResource("2_cm0pq")
 
-[node name="TasksList" type="VBoxContainer" parent="Workspace" unique_id=1419324477]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="DropZone" type="Panel" parent="Workspace" unique_id=317510422]
+layout_mode = 0
+offset_top = 56.0
+offset_right = 385.0
+offset_bottom = 97.0
 
 [node name="Graph" type="Control" parent="." unique_id=1550818346]
 layout_mode = 1
@@ -118,17 +116,14 @@ offset_bottom = 300.0
 size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="ParticipantsPanel" unique_id=1700000001]
-layout_mode = 0
-anchor_left = 0.0
-anchor_right = 1.0
-offset_left = 0.0
-offset_top = 380.0
-offset_right = 0.0
-offset_bottom = 460.0
 custom_minimum_size = Vector2(0, 80)
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 380.0
+offset_bottom = 460.0
 
 [node name="ColorWheel" type="Control" parent="ParticipantsPanel" unique_id=1700000002]
-layout_mode = 0
+anchors_preset = 0
 offset_left = 56.0
 offset_top = 455.0
 offset_right = 176.0

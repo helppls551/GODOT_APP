@@ -26,6 +26,7 @@ func _on_header_gui_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseMotion and dragging:
 		global_position = get_global_mouse_position() - drag_offset
+		
 
 func _on_closebut_pressed() -> void:
 	hide()
