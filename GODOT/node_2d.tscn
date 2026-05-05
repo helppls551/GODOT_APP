@@ -112,25 +112,6 @@ theme_override_styles/normal = SubResource("2")
 placeholder_text = "Введите описание..."
 wrap_mode = 1
 
-[node name="TypeContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=248932036]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 5
-
-[node name="TypeLabel" type="Label" parent="Control/VBoxContainer/TypeContainer" unique_id=1556021422]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Тип:"
-
-[node name="TypeInput" type="LineEdit" parent="Control/VBoxContainer/TypeContainer" unique_id=1829562523]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
-theme_override_styles/normal = SubResource("2")
-placeholder_text = "Работа/Личное/Учеба"
-
 [node name="DeadlineContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=2081315229]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -169,6 +150,5 @@ size_flags_stretch_ratio = 2.0
 [connection signal="pressed" from="Control/VBoxContainer/Header/HBox/CloseButton" to="Control/VBoxContainer" method="_on_closebut_pressed"]
 [connection signal="text_changed" from="Control/VBoxContainer/ExecutorContainer/ExecutorInput" to="Control/VBoxContainer" method="_on_input_changed"]
 [connection signal="text_changed" from="Control/VBoxContainer/DescriptionContainer/DescriptionInput" to="Control/VBoxContainer" method="_on_input_changed"]
-[connection signal="text_changed" from="Control/VBoxContainer/TypeContainer/TypeInput" to="Control/VBoxContainer" method="_on_input_changed"]
 [connection signal="text_changed" from="Control/VBoxContainer/DeadlineContainer/DeadlineInput" to="Control/VBoxContainer" method="_on_input_changed"]
 [connection signal="pressed" from="Control/VBoxContainer/SaveButton" to="Control/VBoxContainer" method="_on_save_button_pressed"]

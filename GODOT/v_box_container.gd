@@ -42,7 +42,6 @@ func get_note_data() -> Dictionary:
 	return {
 		"executor": executor_input.text,
 		"description": description_input.text,
-		"type": type_input.text,
 		"start": deadline_input.text.substr(0,10),
 		"deadline": deadline_input.text.substr(11,21),
 		"position_x": position.x,

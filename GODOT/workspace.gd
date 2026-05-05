@@ -1,6 +1,7 @@
 extends Control
 
 @onready var drop_zone = $DropZone
+@onready var line_edit = $Task
 
 var zone_panels: Array = []
 var panel_count := 0
@@ -9,8 +10,26 @@ var panel_count := 0
 func _ready():
 	EventBus.note_data_changed.connect(create_new_panel)
 	load_all_panels()
+	load_text()
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_text()
+
+func save_text():
+	var config = ConfigFile.new()
+	config.set_value("ui", "lineedit_placeholder", line_edit.text)
+	config.save("res://settings.cfg")
 
 
+func load_text():
+	var config = ConfigFile.new()
+	var err = config.load("res://settings.cfg")
+	if err == OK:
+		var saved_text = config.get_value("ui", "lineedit_placeholder", "")
+		line_edit.text = saved_text
+		
+		
 func load_all_panels():
 	var dir = DirAccess.open("res://")
 	if dir == null:
@@ -139,3 +158,5 @@ func save_panel(panel):
 	if file:
 		file.store_string(JSON.stringify(data))
 		file.close()
+		
+		

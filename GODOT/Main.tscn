@@ -16,6 +16,8 @@ bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
 
 [sub_resource type="Theme" id="Theme_uu6xs"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cm0pq"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fos0i"]
 bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
 
@@ -75,7 +77,16 @@ script = ExtResource("2_cm0pq")
 layout_mode = 0
 offset_top = 56.0
 offset_right = 385.0
-offset_bottom = 97.0
+offset_bottom = 81.0
+
+[node name="Task" type="LineEdit" parent="Workspace" unique_id=1694585761]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 24.0
+offset_right = 377.0
+offset_bottom = 55.0
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cm0pq")
 
 [node name="Graph" type="Control" parent="." unique_id=1550818346]
 layout_mode = 1
