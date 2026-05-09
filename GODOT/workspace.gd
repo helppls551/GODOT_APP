@@ -93,7 +93,8 @@ func _setup_dragging(panel):
 			if event.pressed:
 				panel.set_meta("dragging", true)
 				panel.set_meta("drag_offset", get_global_mouse_position() - panel.global_position)
-				move_child(panel, -1)
+				if !(panel in zone_panels):
+					move_child(panel, -1)
 
 			else:
 				panel.set_meta("dragging", false)
