@@ -1,0 +1,72 @@
+[
+	{
+		"ep-id": 1,
+		"ep-description": "Получить текущий список пользователей (GET /api/users). Можно с фильтром по user_id и/или role (GET /api/users?user_id=42&role=designer)",
+		"response":{
+			[
+				{"user_id": 0, "role": "manager"},
+				{"user_id": 1, "role": "designer"}
+			]
+		}
+	},
+	{
+		"ep-id": 2,
+		"ep-description": "Создать нового пользователя (POST /api/users)",
+		"request":{
+			"role": "designer"
+		},
+		"responses":{
+			"201": {	
+				"user_id" : 2,
+				"role": "designer"
+			},
+			"400": {
+				"description": "Failed to create user; invalid role?"
+			}
+		}
+	},
+	{
+		"ep-id": 3,
+		"ep-description": "Получить список всех задач (GET /api/tasks)",
+		"response":{
+			[
+				{"task_id": 42, "assignee": 1, "status": "done", "estimate_h": 20,
+				"created_at": 1773096969, "due_date": 1823090420},
+				{"task_id": 37, "assignee": 0, "status": "in_progress", "estimate_h": 5,
+				"created_at": 1513090290, "due_date": 1783090351},
+			]
+		}
+	},
+	{
+		"ep-id": 4,
+		"ep-description": "Создать задачу (POST /api/tasks)",
+		"request":{
+			"assignee": 1,
+			"estimate_h": 12,
+			"due_date": 19518341322
+		},
+		"responses":{
+			"201": {	
+				"task_id" : 45,
+				"assignee": 1,
+				"status": "todo",
+				"estimate_h": 12,
+				"created_at": 1753090719,
+				"due_date": 1773090719
+			},
+			"400": {
+				"description": "Failed to create task; invalid parameters?"
+			}
+		}
+	},
+	{
+		"ep-id": 5,
+		"ep-description": "Получить time_logs (GET /api/time_logs)",
+		"response":{
+			[
+				{"task_id": 26, "user_id": "5", "date": 1973090561, "estimate_h": 3},
+				{"task_id": 5, "user_id": "0", "date": 1933095500, "estimate_h": 28},
+			]
+		}
+	},
+]
