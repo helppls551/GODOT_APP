@@ -6,7 +6,8 @@ var note_id = 0
 @onready var executor_input = $ExecutorContainer/ExecutorInput
 @onready var description_input = $DescriptionContainer/DescriptionInput
 @onready var type_input = $TypeContainer/TypeInput
-@onready var deadline_input = $DeadlineContainer/DeadlineInput
+@onready var start = $Start/StartInput
+@onready var end = $End/EndInput
 @onready var close_button = $Header/HBox/CloseButton
 
 func _ready() -> void: 
@@ -42,8 +43,8 @@ func get_note_data() -> Dictionary:
 	return {
 		"executor": executor_input.text,
 		"description": description_input.text,
-		"start": deadline_input.text.substr(0,10),
-		"deadline": deadline_input.text.substr(11,21),
+		"start": start.text,
+		"deadline": end.text,
 		"position_x": position.x,
 		"position_y": position.y
 	}

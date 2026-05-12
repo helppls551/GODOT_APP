@@ -67,8 +67,9 @@ func create_new_panel(data ={}):
 
 	panel.set_meta("file", data.get("__file", ""))
 	panel.set_meta("in_zone", data.get("in_zone", false))
+	panel.set_meta("data",data)
 
-	panel.global_position = Vector2(
+	panel.position = Vector2(
 		data.get("position_x", randf_range(0, size.x - 200)),
 		data.get("position_y", randf_range(0, size.y - 150))
 	)
@@ -85,10 +86,45 @@ func create_new_panel(data ={}):
 func _setup_dragging(panel):
 	panel.set_meta("dragging", false)
 	panel.set_meta("drag_offset", Vector2.ZERO)
+	panel.set_meta("base_size", Vector2(200, 25))
 
 	panel.gui_input.connect(func(event):
-
+		
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if event.double_click and event.button_index == MOUSE_BUTTON_LEFT:
+				
+				var details_panel = panel.get_node_or_null("DetailsPanel")
+
+				# CLOSE
+				if details_panel:
+					details_panel.queue_free()
+					panel.size = Vector2(200,25)
+					return
+
+				# OPEN
+				var data = panel.get_meta("data", {})
+
+				details_panel = Panel.new()
+				details_panel.name = "DetailsPanel"
+				details_panel.position = Vector2(0, 25)
+				details_panel.size = Vector2(300,10)
+
+				var style = StyleBoxFlat.new()
+				style.bg_color = Color(0.15, 0.15, 0.2)
+				details_panel.add_theme_stylebox_override("panel", style)
+
+				panel.add_child(details_panel)
+
+				var label = Label.new()
+				label.text = "Описание: "+data.get("description","")
+				label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				label.custom_minimum_size = Vector2(300-10,0)
+				details_panel.add_child(label)
+				await get_tree().process_frame
+				var height = label.get_combined_minimum_size().y + 10
+				details_panel.size = Vector2(300,height)
+				panel.size = Vector2(300,25)
+				return
 
 			if event.pressed:
 				panel.set_meta("dragging", true)
@@ -104,11 +140,12 @@ func _setup_dragging(panel):
 				else:
 					_remove_from_zone(panel)
 				save_panel(panel)
+		
 
 		elif event is InputEventMouseMotion and panel.get_meta("dragging"):
 			var offset = panel.get_meta("drag_offset")
-			panel.global_position = get_global_mouse_position() - offset
-	)
+			panel.global_position = get_global_mouse_position() - offset)
+		
 
 
 func is_inside_drop_zone(panel):
@@ -117,8 +154,9 @@ func is_inside_drop_zone(panel):
 
 
 func _move_to_zone(panel, save: bool):
+
 	if panel.get_parent() != drop_zone:
-		panel.reparent(drop_zone, true) # keep global position
+		panel.reparent(drop_zone)
 
 	panel.set_meta("in_zone", true)
 
@@ -142,7 +180,7 @@ func _remove_from_zone(panel):
 func update_zone_layout():
 	for i in range(zone_panels.size()):
 		var p = zone_panels[i]
-		p.position = Vector2(i * 25, 0)  # локально внутри drop_zone
+		p.position = Vector2(i * 25, 0)
 
 
 func save_panel(panel):
