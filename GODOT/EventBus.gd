@@ -1,3 +1,0 @@
-extends Node
-signal note_data_changed
-signal participant_color_changed(participant_name, new_color)
