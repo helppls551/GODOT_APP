@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bevm2dy27c4tg"]
+
+[ext_resource type="PackedScene" uid="uid://5f4oiai6b43u" path="res://node_2d.tscn" id="1_7hqtv"]
+[ext_resource type="Texture2D" uid="uid://cftdyxl6vqp4e" path="res://Frame 4.png" id="2_7w2tp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hqtv"]
+bg_color = Color(0.5890956, 0.58909565, 0.58909535, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7w2tp"]
+bg_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+
+[node name="Node2D" unique_id=1529904760 instance=ExtResource("1_7hqtv")]
+
+[node name="Control" parent="." index="0" unique_id=944131834]
+offset_top = -27.0
+offset_right = 405.0
+offset_bottom = 195.0
+mouse_filter = 2
+
+[node name="ColorRect" parent="Control" index="0" unique_id=1040384735]
+offset_left = 0.0
+offset_top = -26.0
+offset_right = 408.0
+offset_bottom = 258.0
+
+[node name="VBoxContainer" parent="Control" index="1" unique_id=122997488]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 3.0
+offset_bottom = 7.0
+
+[node name="Header" parent="Control/VBoxContainer" index="0" unique_id=1529295662]
+theme_override_styles/panel = SubResource("StyleBoxFlat_7hqtv")
+
+[node name="TitleLabel" parent="Control/VBoxContainer/Header/HBox" parent_id_path=PackedInt32Array(2044934645) index="0" unique_id=214226008]
+text = "Задача"
+
+[node name="CloseButton" parent="Control/VBoxContainer/Header/HBox" parent_id_path=PackedInt32Array(2044934645) index="1" unique_id=1112340551]
+texture_normal = ExtResource("2_7w2tp")
+
+[node name="SaveButton" parent="Control/VBoxContainer" index="5" unique_id=1496695041]
+theme_override_colors/font_outline_color = Color(0.69803923, 0.69803923, 0.69803923, 1)
+theme_override_colors/icon_disabled_color = Color(0.69803923, 0.69803923, 0.69803923, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7w2tp")

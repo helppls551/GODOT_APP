@@ -1,0 +1,330 @@
+[gd_scene format=3 uid="uid://7lx5hgrxvvty"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_main_script"]
+[ext_resource type="Script" uid="uid://bvwt685thlv7p" path="res://workspace.gd" id="2_cm0pq"]
+[ext_resource type="Texture2D" uid="uid://8y7p7fedj25n" path="res://Frame 12 (1).png" id="2_trn2v"]
+[ext_resource type="Script" uid="uid://6i56bs3mvs6i" path="res://graph.gd" id="2_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://cftdyxl6vqp4e" path="res://Frame 4.png" id="3_03owx"]
+[ext_resource type="Script" uid="uid://chrw76k16hxfs" path="res://color_wheel.gd" id="3_color_wheel"]
+[ext_resource type="Texture2D" uid="uid://sng4ujw1rks3" path="res://Frame 19 (1).png" id="4_wkp8b"]
+[ext_resource type="Texture2D" uid="uid://bfiw000mwnmrd" path="res://Delete.png" id="5_20pc6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
+bg_color = Color(0.69803923, 0.69803923, 0.69803923, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plus"]
+bg_color = Color(0.9019608, 0.9019608, 0.9019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
+bg_color = Color(0.22352941, 0.5921569, 0.88235295, 1)
+
+[sub_resource type="Theme" id="Theme_cm0pq"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fos0i"]
+
+[sub_resource type="Theme" id="Theme_3dxm6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cm0pq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fos0i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3dxm6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgr22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trn2v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03owx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkp8b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fos0i"]
+bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
+
+[node name="Main" type="Control" unique_id=571473272]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main_script")
+
+[node name="TopPanel" type="Panel" parent="." unique_id=1218732029]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
+
+[node name="AddButton" type="Button" parent="TopPanel" unique_id=2118408186]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_plus")
+icon = ExtResource("2_trn2v")
+expand_icon = true
+
+[node name="CloseButton" type="Button" parent="TopPanel" unique_id=2118408185]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.966
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.16796875
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_cm0pq")
+icon = ExtResource("3_03owx")
+expand_icon = true
+
+[node name="AddButton2" type="Button" parent="TopPanel" unique_id=1997032912]
+layout_mode = 0
+offset_left = 42.0
+offset_right = 83.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_plus")
+icon = ExtResource("4_wkp8b")
+expand_icon = true
+
+[node name="AddButton3" type="Button" parent="TopPanel" unique_id=1615154453]
+layout_mode = 0
+offset_left = 82.0
+offset_right = 125.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_plus")
+icon = ExtResource("5_20pc6")
+expand_icon = true
+
+[node name="Workspace" type="Control" parent="." unique_id=44163563]
+layout_mode = 1
+anchor_right = 0.8
+anchor_bottom = 0.82100004
+offset_top = 40.0
+offset_bottom = 3.9920044
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_cm0pq")
+script = ExtResource("2_cm0pq")
+
+[node name="ColorRect" type="ColorRect" parent="Workspace" unique_id=110531116]
+material = SubResource("CanvasItemMaterial_fos0i")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3dxm6")
+color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+
+[node name="Task1" type="LineEdit" parent="Workspace" unique_id=1694585761]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 24.0
+offset_right = 377.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cm0pq")
+
+[node name="DropZone1" type="Panel" parent="Workspace" unique_id=317510422]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 56.0
+offset_right = 111.0
+offset_bottom = 81.0
+
+[node name="Task2" type="LineEdit" parent="Workspace" unique_id=778613291]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 83.0
+offset_right = 377.0
+offset_bottom = 114.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cm0pq")
+
+[node name="DropZone2" type="Panel" parent="Workspace" unique_id=350276881]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 115.0
+offset_right = 109.0
+offset_bottom = 140.0
+
+[node name="Task3" type="LineEdit" parent="Workspace" unique_id=887068101]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 139.0
+offset_right = 377.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fos0i")
+
+[node name="DropZone3" type="Panel" parent="Workspace" unique_id=634617084]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 171.0
+offset_right = 107.0
+offset_bottom = 196.0
+
+[node name="Task4" type="LineEdit" parent="Workspace" unique_id=1893448999]
+layout_mode = 0
+offset_top = 197.0
+offset_right = 376.0
+offset_bottom = 228.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3dxm6")
+
+[node name="DropZone4" type="Panel" parent="Workspace" unique_id=790307151]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 227.0
+offset_right = 111.0
+offset_bottom = 252.0
+
+[node name="Task5" type="LineEdit" parent="Workspace" unique_id=1650517215]
+layout_mode = 0
+offset_top = 253.0
+offset_right = 376.0
+offset_bottom = 284.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lgr22")
+
+[node name="DropZone5" type="Panel" parent="Workspace" unique_id=1136619634]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 285.0
+offset_right = 111.0
+offset_bottom = 310.0
+
+[node name="Task6" type="LineEdit" parent="Workspace" unique_id=1688445916]
+layout_mode = 0
+offset_top = 311.0
+offset_right = 376.0
+offset_bottom = 342.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_trn2v")
+
+[node name="DropZone6" type="Panel" parent="Workspace" unique_id=973723451]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 342.0
+offset_right = 111.0
+offset_bottom = 367.0
+
+[node name="Task7" type="LineEdit" parent="Workspace" unique_id=422563241]
+layout_mode = 0
+offset_top = 368.0
+offset_right = 376.0
+offset_bottom = 399.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_03owx")
+
+[node name="DropZone7" type="Panel" parent="Workspace" unique_id=1108135982]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_top = 400.0
+offset_right = 200.0
+offset_bottom = 425.0
+
+[node name="Task8" type="LineEdit" parent="Workspace" unique_id=684004133]
+layout_mode = 0
+offset_top = 428.0
+offset_right = 376.0
+offset_bottom = 459.0
+theme_override_colors/font_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wkp8b")
+
+[node name="DropZone8" type="Panel" parent="Workspace" unique_id=2112390235]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -2.0
+offset_top = 460.0
+offset_right = 198.0
+offset_bottom = 485.0
+
+[node name="Graph" type="Control" parent="." unique_id=1550818346]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+offset_right = -230.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_uu6xs")
+
+[node name="ColorRect" type="ColorRect" parent="Graph" unique_id=86513253]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.69803923, 0.69803923, 0.69803923, 1)
+
+[node name="ParticipantsPanel" type="Panel" parent="." unique_id=696787404]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fos0i")
+
+[node name="Label" type="Label" parent="ParticipantsPanel" unique_id=512993451]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Участники:"
+
+[node name="ParticipantList" type="VBoxContainer" parent="ParticipantsPanel" unique_id=1369701782]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 190.0
+offset_bottom = 300.0
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="ParticipantsPanel" unique_id=1700000001]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 380.0
+offset_bottom = 460.0
+
+[node name="ColorWheel" type="Control" parent="ParticipantsPanel" unique_id=1700000002]
+anchors_preset = 0
+offset_left = 56.0
+offset_top = 455.0
+offset_right = 176.0
+offset_bottom = 575.0
+script = ExtResource("3_color_wheel")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

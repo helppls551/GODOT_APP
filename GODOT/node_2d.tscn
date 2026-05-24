@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://5f4oiai6b43u"]
+
+[ext_resource type="Script" uid="uid://g18r2cil5fsx" path="res://control.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" path="res://Krest.png" id="2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0e48y"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.3, 0.4, 0.6, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
+bg_color = Color(0.22352941, 0.5921569, 0.8862745, 1)
+
+[node name="Node2D" type="Node2D" unique_id=619639925]
+
+[node name="Control" type="Control" parent="." unique_id=944131834]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0e48y")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1040384735]
+material = SubResource("CanvasItemMaterial_0e48y")
+layout_mode = 0
+offset_left = 6.0
+offset_top = -12.0
+offset_right = 414.0
+offset_bottom = 272.0
+color = Color(0.7921569, 0.7921569, 0.7921569, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=122997488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -13.5
+offset_right = 415.0
+offset_bottom = 269.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="Panel" parent="Control/VBoxContainer" unique_id=1529295662]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_styles/panel = SubResource("1")
+
+[node name="HBox" type="HBoxContainer" parent="Control/VBoxContainer/Header" unique_id=2044934645]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="CloseButton" type="TextureButton" parent="Control/VBoxContainer/Header/HBox" unique_id=1112340551]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ExecutorContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1935703290]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="ExecutorLabel" type="Label" parent="Control/VBoxContainer/ExecutorContainer" unique_id=1983741466]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Исполнитель:"
+
+[node name="ExecutorInput" type="LineEdit" parent="Control/VBoxContainer/ExecutorContainer" unique_id=2067182007]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.36659402, 0.36659488, 0.36659428, 0.6)
+theme_override_styles/normal = SubResource("2")
+placeholder_text = "Введите имя"
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="Control/VBoxContainer" unique_id=1021178566]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="DescriptionLabel" type="Label" parent="Control/VBoxContainer/DescriptionContainer" unique_id=1916036499]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Описание:"
+
+[node name="DescriptionInput" type="TextEdit" parent="Control/VBoxContainer/DescriptionContainer" unique_id=1880600915]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("2")
+placeholder_text = "Введите описание..."
+wrap_mode = 1
+
+[node name="Start" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=2081315229]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="StartLabel" type="Label" parent="Control/VBoxContainer/Start" unique_id=1342224678]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Начало:"
+
+[node name="StartInput" type="LineEdit" parent="Control/VBoxContainer/Start" unique_id=1637183481]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
+theme_override_styles/normal = SubResource("2")
+placeholder_text = "ДД.ММ.ГГГГ"
+
+[node name="End" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=759835307]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="EndLabel" type="Label" parent="Control/VBoxContainer/End" unique_id=1605697793]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Конец:"
+
+[node name="EndInput" type="LineEdit" parent="Control/VBoxContainer/End" unique_id=640068927]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.6)
+theme_override_styles/normal = SubResource("2")
+placeholder_text = "ДД.ММ.ГГГГ"
+
+[node name="SaveButton" type="Button" parent="Control/VBoxContainer" unique_id=1496695041]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0.29803923, 0.4, 0.6, 1)
+theme_override_colors/icon_disabled_color = Color(0.29803923, 0.4, 0.6, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_0e48y")
+text = "Сохранить"
+
+[node name="Bottom" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=211767166]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[connection signal="gui_input" from="Control/VBoxContainer/Header" to="Control" method="_on_header_gui_input"]
+[connection signal="pressed" from="Control/VBoxContainer/Header/HBox/CloseButton" to="Control" method="_on_closebut_pressed"]
+[connection signal="text_changed" from="Control/VBoxContainer/ExecutorContainer/ExecutorInput" to="Control" method="_on_executor_input_text_changed"]
+[connection signal="text_changed" from="Control/VBoxContainer/DescriptionContainer/DescriptionInput" to="Control" method="_on_input_changed"]
+[connection signal="text_changed" from="Control/VBoxContainer/Start/StartInput" to="Control" method="_on_input_changed"]
+[connection signal="text_changed" from="Control/VBoxContainer/End/EndInput" to="Control" method="_on_input_changed"]
+[connection signal="pressed" from="Control/VBoxContainer/SaveButton" to="Control" method="_on_save_button_pressed"]
