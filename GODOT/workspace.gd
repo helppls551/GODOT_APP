@@ -125,16 +125,20 @@ func init_zone_panels():
 			zone_panels[zone] = []
 
 func create_new_panel(data = {}):
+	# --- ЗАЩИТА ОТ СОЗДАНИЯ ПУСТЫХ ПАНЕЛЕЙ ПРИ УДАЛЕНИИ ---
+	# Если data пустая (сигнал прилетел просто как уведомление об обновлении),
+	# мы ничего не создаем, а просто выходим из функции.
+	if data.is_empty():
+		return
+	# -----------------------------------------------------
+
 	var file_path = data.get("__file", "")
 	var exec = data.get("executor", "").strip_edges()
 
 	# --- УМНАЯ ПРОВЕРКА И ОБНОВЛЕНИЕ СУЩЕСТВУЮЩЕЙ ПАНЕЛИ ---
 	if file_path != "":
 		for child in get_children():
-			# ПРОВЕРКА 1: Убеждаемся, что узел — это Panel
 			if child is Panel:
-				# ПРОВЕРКА 2: Избегаем системных DropZone и встроенных элементов UI, 
-				# проверяя, задан ли вообще ключ "file"
 				if child.has_meta("file") and child.get_meta("file") == file_path:
 					child.set_meta("executor", exec)
 					child.set_meta("data", data)
@@ -146,10 +150,10 @@ func create_new_panel(data = {}):
 							child.add_theme_stylebox_override("panel", existing_style)
 							data["panel_color"] = EventBus.active_colors[exec].to_html()
 							save_panel(child)
-					return # Если нашли и обновили панель на экране — выходим
+					return 
 	# ------------------------------------------------------------
 
-	# ЕСЛИ ПАНЕЛИ НЕТ НА ЭКРАНЕ, СОЗДАЕМ ЕЕ С НУЛЯ
+	# ЕСЛИ ПАНЕЛИ НЕТ НА ЭКРАНЕ, СОЗДАЕМ ЕЕ С НУЛЯ (Вызовется только при реальном добавлении ноты)
 	panel_count += 1
 	var panel = Panel.new()
 	panel.custom_minimum_size = Vector2(200, 25)
@@ -249,15 +253,79 @@ func _setup_dragging(panel):
 
 	panel.gui_input.connect(func(event):
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			
+			# --- ДВОЙНОЙ КЛИК: ОТКРЫТИЕ / ЗАКРЫТИЕ ПАНЕЛИ ОПИСАНИЯ ---
 			if event.double_click:
 				var details_panel = panel.get_node_or_null("DetailsPanel")
-				if details_panel:
-					details_panel.queue_free()
+				var delete_btn = panel.get_node_or_null("DeleteIconButton")
+				
+				# Если уже открыто — сворачиваем обратно и удаляем кнопку крестика
+				if details_panel or delete_btn:
+					if details_panel: details_panel.queue_free()
+					if delete_btn: delete_btn.queue_free()
 					panel.custom_minimum_size = Vector2(200, 25)
 					panel.size = Vector2(200, 25)
 					return
 
 				var data = panel.get_meta("data", {})
+				
+				# --- 1. СОЗДАНИЕ МАЛЕНЬКОЙ КНОПКИ УДАЛЕНИЯ (КРЕСТИКА) ЧЕРЕЗ BUTTON ---
+				var texture_path = "res://frame 4.png"
+				if ResourceLoader.exists(texture_path):
+					var btn = Button.new()
+					btn.name = "DeleteIconButton"
+					
+					# Загружаем frame 4.png как иконку для обычной кнопки
+					btn.icon = load(texture_path)
+					btn.expand_icon = true # Обязательно: разрешаем иконке сжиматься/растягиваться под размер кнопки
+					
+					# Задаем кнопке небольшой аккуратный размер (например, 20x20 или 25x25)
+					# Слишком маленький размер (вроде 10x10) сделает иконку невидимой или по ней будет сложно попасть
+					var btn_size = 20
+					btn.custom_minimum_size = Vector2(btn_size, btn_size)
+					btn.size = Vector2(btn_size, btn_size)
+					
+					# Позиционируем в правый верхний угол развернутой панели (300 - btn_size)
+					# Центрируем по вертикали (высота панели 25 - высота кнопки btn_size) / 2
+					btn.position = Vector2(300 - btn_size - 2, (25 - btn_size) / 2)
+					
+					# Делаем обычную кнопку прозрачной, чтобы была видна ТОЛЬКО твоя иконка крестика
+					var empty_style = StyleBoxEmpty.new()
+					btn.add_theme_stylebox_override("normal", empty_style)
+					btn.add_theme_stylebox_override("hover", empty_style)
+					btn.add_theme_stylebox_override("pressed", empty_style)
+					btn.add_theme_stylebox_override("focus", empty_style)
+					
+					# Кнопка должна перехватывать клики на себя, чтобы не срабатывал драг панели
+					btn.mouse_filter = Control.MOUSE_FILTER_STOP
+					
+					# Логика удаления файла при нажатии на кнопку
+					# Логика удаления файла при нажатии на кнопку
+					btn.pressed.connect(func():
+						var file_path = panel.get_meta("file", "")
+						if file_path != "" and FileAccess.file_exists(file_path):
+							DirAccess.remove_absolute(file_path)
+							print("Файл удален через кнопку: ", file_path)
+						
+						# Очищаем из структуры зон
+						for zone in zone_panels.keys():
+							if zone_panels[zone].has(panel):
+								zone_panels[zone].erase(panel)
+						
+						# --- ВОТ ЭТА СТРОЧКА ОПЯТЬ НУЖНА ТУТ ---
+						# Она заставит обновиться участников и графики,
+						# а первая строчка 'if data.is_empty()' защитит от появления пустой панели.
+						EventBus.note_data_changed.emit()
+						# ---------------------------------------
+						
+						panel.queue_free()
+					)
+					
+					panel.add_child(btn)
+				else:
+					print("Предупреждение: Иконка удаления не найдена: ", texture_path)
+
+				# --- 2. СОЗДАНИЕ ПАНЕЛИ ОПИСАНИЯ ---
 				details_panel = Panel.new()
 				details_panel.name = "DetailsPanel"
 				details_panel.position = Vector2(0, 25)
@@ -266,14 +334,20 @@ func _setup_dragging(panel):
 				var style = StyleBoxFlat.new()
 				style.bg_color = Color(0.15, 0.15, 0.2)
 				details_panel.add_theme_stylebox_override("panel", style)
+				
+				# Пропускаем клики сквозь темную панель, чтобы можно было тащить за неё
+				details_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 				panel.add_child(details_panel)
 
+				# --- 3. ТЕКСТ ОПИСАНИЯ ---
 				var label = Label.new()
-				label.text = "Описание: " + data.get("description", "")
+				label.text = "Описание: " + data.get("description", "") + "\n" + "Начало: " + data.get("start", "") + "\n" + "Конец: " + data.get("deadline", "") 
 				label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				label.custom_minimum_size = Vector2(290, 0)
+				label.mouse_filter = Control.MOUSE_FILTER_PASS
 				details_panel.add_child(label)
 				
+				# Просчет высоты текста
 				await get_tree().process_frame
 				var height = label.get_combined_minimum_size().y + 10
 				details_panel.size = Vector2(300, height)
@@ -281,12 +355,14 @@ func _setup_dragging(panel):
 				panel.size = Vector2(300, 25)
 				return
 
+			# --- ОБЫЧНЫЙ КЛИК ПО ПАНЕЛИ (НАЧАЛО ПЕРЕТАСКИВАНИЯ) ---
 			if event.pressed:
 				panel.set_meta("dragging", true)
 				panel.set_meta("drag_offset", get_global_mouse_position() - panel.global_position)
 				if !(panel in zone_panels):
 					move_child(panel, -1)
 			else:
+				# ОТПУСКАНИЕ МЫШИ (КОНЕЦ ПЕРЕТАСКИВАНИЯ)
 				panel.set_meta("dragging", false)
 				var zone = get_drop_zone(panel)
 				if zone:
@@ -295,11 +371,11 @@ func _setup_dragging(panel):
 					_remove_from_zone(panel)
 				save_panel(panel)
 		
+		# ПЕРЕМЕЩЕНИЕ МЫШИ (ДРАГ)
 		elif event is InputEventMouseMotion and panel.get_meta("dragging"):
 			var offset = panel.get_meta("drag_offset")
 			panel.global_position = get_global_mouse_position() - offset
 	)
-
 func get_drop_zone(panel):
 	for zone in drop_zones:
 		if zone.visible:

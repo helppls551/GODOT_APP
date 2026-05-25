@@ -144,6 +144,10 @@ func update_participants_list():
 
 func load_json():
 	participants.clear()
+	
+	# Создаем временный массив, чтобы понять, какие участники РЕАЛЬНО остались в файлах
+	var current_executors = []
+	
 	var dir = DirAccess.open("res://")
 	if not dir: return
 	
@@ -164,16 +168,15 @@ func load_json():
 					if exec != "":
 						if not exec in participants:
 							participants.append(exec)
+						if not exec in current_executors:
+							current_executors.append(exec)
 						
-						# Если цвет для этой сессии уже сохранен в глобальной шине, берем его приоритетно
 						if EventBus.active_colors.has(exec):
 							participant_colors[exec] = EventBus.active_colors[exec]
-						# Если в шине пусто, но цвет есть внутри файла JSON задачи
 						elif data.has("panel_color") and str(data["panel_color"]) != "":
 							var restored_color = Color.from_string(data["panel_color"], palette[0])
 							participant_colors[exec] = restored_color
 							EventBus.active_colors[exec] = restored_color
-						# Если цвета нет нигде, подбираем из палитры
 						elif not participant_colors.has(exec):
 							var assigned = false
 							for i in range(palette.size()):
@@ -189,8 +192,14 @@ func load_json():
 		filename = dir.get_next()
 	dir.list_dir_end()
 	
-	# ИСПРАВЛЕНИЕ: Мы убрали отсюда автоматический спам сигналом participant_color_changed.
-	# Вместо этого мы точечно обновляем интерфейс Workspace, если цвета обновились при загрузке.
+	# СИНХРОНИЗАЦИЯ УДАЛЕНИЯ: Если участника больше нет ни в одной заметке,
+	# полностью удаляем его из глобальной базы данных цветов
+	for active_exec in EventBus.active_colors.keys():
+		if not active_exec in current_executors:
+			EventBus.active_colors.erase(active_exec)
+			if participant_colors.has(active_exec):
+				participant_colors.erase(active_exec)
+
 	for participant in participant_colors:
 		if EventBus.active_colors.has(participant):
 			EventBus.participant_color_changed.emit(participant, participant_colors[participant])
